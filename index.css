@@ -1,0 +1,223 @@
+@font-face {
+  font-family: 'PixelGame';
+  src: url('/PixelGame.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  image-rendering: pixelated;
+}
+
+
+html, body{
+    width: 100%;
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    background-color: #222;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 1.5rem;
+    font-family: 'PixelGame';
+}
+
+/*  */
+#PlayWindow {
+    /* width: 1024px;
+    height: 685px; */
+
+    width: 50vw;
+    height: 60vh;
+
+    border: 5px solid #2b2b2b;
+    border-radius: 5px;
+}
+/*  */
+
+#Game {
+    width: 100%;
+    height: 100%;
+
+    background-image: url(slot-machine.png);
+    background-repeat: no-repeat;
+    background-size: 125% 125%;
+    background-position: 53% 100%;
+    image-rendering: pixelated;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* PLAYERSTATS STYLES */
+#PlayerStats {
+    width: 100%;
+    height: 7%;
+    display: flex;
+    align-items: flex-end;
+}
+
+#PlayerStats #BalanceWrapper {
+    width: 15vw;
+    height: 60%;
+
+    margin-left: 15px;
+    background-color: #a1b3c6;
+    border: 2px dashed #6e79a6;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* DOORS STYLES */
+#Doors {
+    width: 58%;
+    height: 42%;   
+    
+    display: flex;
+    justify-content: space-between;
+}
+
+#Doors .Slot {
+    /* ДЛЯ ИЗИ ДЕБАГА */
+    background-color: rgba(255, 0, 0, 0.418);
+    border: 3px solid rgb(255, 0, 0); 
+    /*  */
+
+    width: 30%;
+    overflow: hidden;
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#Doors .Slot .Reel{
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 0;
+}
+
+#Doors .Slot .Symbol {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 45px;
+
+    image-rendering: pixelated;
+}
+
+/* NAV STYLES */
+nav {
+    width: 90%;
+    height: 7vh;
+    background-color: #a1b3c6;
+    border: 2px dashed #6e79a6;
+
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    margin-bottom: 3vh; 
+}
+
+nav #SpinButtonWrapper {
+    width: 30%;
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+}
+
+nav #SpinButtonWrapper button {
+    width: 20vw;
+    height: 5vh;
+
+    font-family: 'PixelGame';
+    font-size: 1.7rem;
+
+    border: 2px solid #e43b00;
+    border-radius: 2px;
+    color: #ddf6f7;
+    background-color: #bf1929;
+
+    transition: 0.1s ease-out;
+}
+
+nav #SpinButtonWrapper button:hover {
+    transform: scale(1.1);
+    background-color: #d81d30;
+    border-radius: 7px;
+    cursor: pointer;
+}
+
+nav #SpinButtonWrapper button:active {
+    transform: scale(0.9);
+}
+
+nav #FunctionButtonsWrapper {
+    width: 40%;
+    height: 100%;
+
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+nav #FunctionButtonsWrapper button {
+    width: 50px;
+    height: 50px;
+
+    border: 2px solid #190657;
+    border-radius: 5px;
+    color: #ddf6f7;
+    background-color: #3f3b93;
+    transition: 0.2s ease-out;
+}
+
+nav #FunctionButtonsWrapper button:hover {
+    transform: scale(1.1);
+
+    border-radius: 7px;
+    background-color: #4c47af;
+    cursor: pointer;
+}
+
+nav #FunctionButtonsWrapper button:active {
+    background-color: #190657;
+    transform: scale(0.96);
+}
+
+nav #FunctionButtonsWrapper #MaxBetButton {
+    width: 70px;
+    height: 50px;
+    margin-left: 1vw;
+
+    border: 2px solid #e43b00;
+    border-radius: 2px;
+    color: #ddf6f7;
+    background-color: #bf1929;
+
+    font-family: 'PixelGame';
+    font-size: 1.3rem;
+
+    transition: 0.1s ease-out;
+}
+
+nav #FunctionButtonsWrapper #MaxBetButton:hover{
+    background-color: #d81d30;
+    border-radius: 7px;
+
+    cursor: pointer;
+}
+
+nav #FunctionButtonsWrapper #MaxBetButton:active {
+    background-color: #7c121c;
+}
