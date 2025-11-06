@@ -1,6 +1,6 @@
 @font-face {
   font-family: 'PixelGame';
-  src: url('/PixelGame.otf') format('opentype');
+  src: url('./PixelGame.otf') format('opentype');
   font-weight: normal;
   font-style: normal;
   image-rendering: pixelated;
