@@ -1,17 +1,19 @@
+//Основные элементы
 const reels = document.querySelectorAll(".Reel");
 const spinButton = document.getElementById("SpinButton");
 
+//Основная логика
 const symbolHeight = 145;
-const symbolsCount = reels[0].children.length;
 let position = 0;
-let speed = 0;
+let speed = 100; //Скорость вращения
 let spinning = false;
 
 let reelStopped = new Array(reels.length).fill(false);
 
+//Экономика
 let CurrentBalance = 100000;
-const CurrentBalanceText = document.getElementById("CurrentBalanceText");
 let CurrentBet = 500;
+const CurrentBalanceText = document.getElementById("CurrentBalanceText");
 const CurrentBetText = document.getElementById("CurrentBetText");
 
 const addCurrentBetButton = document.getElementById("AddCurrentBetButton");
@@ -48,20 +50,19 @@ function StopReelOnSymbol(ReelID, SymbolID) { //ReelID, SymbolID
   }
   reels[ReelID].style.top = symbolHeight / 2 + "px";
 
-  if(ReelID == 2){ 
-    spinning = false;
-    CalculateWin();
+  if(ReelID == 2) EndGame();
+}
+
+function SetGame(Symbols, Delays){
+  for(let i = 0; i < reels.length; i++){
+      setTimeout(() => {StopReelOnSymbol(i, Symbols[i])}, Delays[i] * 1000);
   }
 }
 
-function SetGame(FirstReelSymb, FirstReelDel, SecondReelSymb, SecondReelDel, ThirdReelSymb, ThirdReelDel){
-  setTimeout(() => {StopReelOnSymbol(0, FirstReelSymb)}, FirstReelDel * 1000);
-  setTimeout(() => {StopReelOnSymbol(1, SecondReelSymb)}, SecondReelDel * 1000);
-  setTimeout(() => {StopReelOnSymbol(2, ThirdReelSymb)}, ThirdReelDel * 1000);
-}
+function EndGame(){
+  spinning = false; //глобальная остановка прокрутки и активация кнопки spin 
 
-function CalculateWin(){
-  let totalSymbols = CurrentSymbols[0].toString() + CurrentSymbols[1].toString() + CurrentSymbols[2].toString();
+  let totalSymbols = CurrentSymbols[0].toString() + CurrentSymbols[1].toString() + CurrentSymbols[2].toString(); //подсчет выигрыша
   switch(totalSymbols){
     case "000":
       CurrentBalance += CurrentBet * 2;
@@ -77,13 +78,15 @@ function CalculateWin(){
   UpdateUI();
 }
 
+//Пока нет серверной части
 function GenerateRandomSymbol(){
-  return Math.floor(Math.random() * 2);
+  return Math.floor(Math.random() * 3);
 }
 
 function GenerateRandomDelay(PreviousDelay){
   return (Math.floor(Math.random() * 3) + 0.5 + PreviousDelay);
 }
+//----------------
 
 function UpdateUI(){
   CurrentBetText.innerHTML = "bet " + CurrentBet;
@@ -99,24 +102,25 @@ spinButton.onclick = () => {
 
   CurrentBalance -= CurrentBet;
   UpdateUI();
+
   spinning = true;
-  speed = 100; //начальная скорость
 
   reelStopped.fill(false);
   
-  let Delays = [GenerateRandomDelay(0), 0, 0]; //генерация делеев
-  Delays[1] = GenerateRandomDelay(Delays[0]); 
-  Delays[2] = GenerateRandomDelay(Delays[1]);
+  let Delays = new Array(reels.length).fill(0); //генерация делеев
+  Delays[0] = GenerateRandomDelay(0);
+  for(let j = 1; j < Delays.length; j++){
+      Delays[j] = GenerateRandomDelay(Delays[j-1]); 
+  }
   
   for (let i = 0; i < CurrentSymbols.length; i++){//генерация символов 
     CurrentSymbols[i] = GenerateRandomSymbol();
   }
 
-  SetGame(CurrentSymbols[0], Delays[0], 
-  CurrentSymbols[1], Delays[1],
-  CurrentSymbols[2], Delays[2]);
+  SetGame(CurrentSymbols, Delays);
 };
 
+//Изменение ставки
 addCurrentBetButton.onclick = () => {
   if(CurrentBet >= 5000) return; 
   CurrentBet += 500;

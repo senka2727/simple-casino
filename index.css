@@ -1,6 +1,6 @@
 @font-face {
   font-family: 'PixelGame';
-  src: url('./PixelGame.otf') format('opentype');
+  src: url('./fonts/PixelGame.otf') format('opentype');
   font-weight: normal;
   font-style: normal;
   image-rendering: pixelated;
@@ -86,8 +86,8 @@ body {
 
 #Doors .Slot {
     /* ДЛЯ ИЗИ ДЕБАГА */
-    background-color: rgba(255, 0, 0, 0.418);
-    border: 3px solid rgb(255, 0, 0); 
+    /* background-color: rgba(255, 0, 0, 0.418);
+    border: 3px solid rgb(255, 0, 0);  */
     /*  */
 
     width: 30%;
