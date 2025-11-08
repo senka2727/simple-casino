@@ -22,6 +22,12 @@ const maxCurrentBetButton = document.getElementById("MaxBetButton");
 
 let CurrentSymbols = new Array(3).fill(0);
 
+//Audio
+const reelStopSFX = document.getElementById("reelStopSFX");
+const spinningSFX = document.getElementById("spinningSFX");
+const winSFX = document.getElementById("winSFX");
+const spinSFX = document.getElementById("spinSFX");
+
 function loop() {
   if(spinning){
     position += speed;
@@ -50,6 +56,9 @@ function StopReelOnSymbol(ReelID, SymbolID) { //ReelID, SymbolID
   }
   reels[ReelID].style.top = symbolHeight / 2 + "px";
 
+  reelStopSFX.pause();
+  reelStopSFX.play();
+
   if(ReelID == 2) EndGame();
 }
 
@@ -61,17 +70,21 @@ function SetGame(Symbols, Delays){
 
 function EndGame(){
   spinning = false; //глобальная остановка прокрутки и активация кнопки spin 
+  spinningSFX.pause();
 
   let totalSymbols = CurrentSymbols[0].toString() + CurrentSymbols[1].toString() + CurrentSymbols[2].toString(); //подсчет выигрыша
   switch(totalSymbols){
     case "000":
       CurrentBalance += CurrentBet * 2;
+      winSFX.play();
       break;
     case "111":
       CurrentBalance += CurrentBet * 3;
+      winSFX.play();
       break;
     case "222":
       CurrentBalance += CurrentBet * 10;
+      winSFX.play();
       break;
   }
 
@@ -84,7 +97,7 @@ function GenerateRandomSymbol(){
 }
 
 function GenerateRandomDelay(PreviousDelay){
-  return (Math.floor(Math.random() * 3) + 0.5 + PreviousDelay);
+  return (Math.floor(Math.random() * 2) + 0.5 + PreviousDelay);
 }
 //----------------
 
@@ -100,10 +113,14 @@ spinButton.onclick = () => {
   if(spinning) return;
   if(CurrentBalance - CurrentBet < 0) return;
 
+  spinSFX.pause();
+  spinSFX.play();
+
   CurrentBalance -= CurrentBet;
   UpdateUI();
 
   spinning = true;
+  spinningSFX.play();
 
   reelStopped.fill(false);
   
